@@ -1,4 +1,4 @@
-package bn256
+package base
 
 import (
 	"encoding/base64"
@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"math/big"
 
-	bn256 "github.com/umbracle/go-eth-bn256"
+	bn256 "github.com/Ethernal-Tech/bn256/cloudflare"
 )
 
 const (
