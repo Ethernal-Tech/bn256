@@ -1,10 +1,10 @@
-package bn256
+package core
 
 import (
 	"fmt"
 	"math/big"
 
-	bn256 "github.com/umbracle/go-eth-bn256"
+	bn256 "github.com/Ethernal-Tech/bn256/cloudflare"
 )
 
 const (
@@ -71,7 +71,7 @@ func UnmarshalSignature(raw []byte) (*Signature, error) {
 
 	// check if not part of the subgroup
 	if !g1.InCorrectSubgroup() {
-		return nil, fmt.Errorf("incorrect subgroup")
+		return nil, errIncorectSubgroup
 	}
 
 	return &Signature{g1: g1}, nil

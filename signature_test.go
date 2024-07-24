@@ -1,4 +1,4 @@
-package bn256
+package core
 
 import (
 	"crypto/rand"
@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
+	bn256 "github.com/Ethernal-Tech/bn256/cloudflare"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	bn256 "github.com/umbracle/go-eth-bn256"
 )
 
 const (

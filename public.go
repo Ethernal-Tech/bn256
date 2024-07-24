@@ -1,4 +1,4 @@
-package bn256
+package core
 
 import (
 	"encoding/base64"
@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"math/big"
 
-	bn256 "github.com/umbracle/go-eth-bn256"
+	bn256 "github.com/Ethernal-Tech/bn256/cloudflare"
 )
 
 const (
@@ -15,6 +15,7 @@ const (
 
 var (
 	errInfinityPoint        = errors.New("infinity point")
+	errIncorectSubgroup     = errors.New("incorrect subgroup")
 	ErrInvalidPublicKeySize = fmt.Errorf("public key must be %d bytes long", PublicKeySize)
 )
 
@@ -83,7 +84,7 @@ func UnmarshalPublicKey(data []byte) (*PublicKey, error) {
 
 	// check if not part of the subgroup
 	if !g2.InCorrectSubgroup() {
-		return nil, fmt.Errorf("incorrect subgroup")
+		return nil, errIncorectSubgroup
 	}
 
 	return &PublicKey{g2: g2}, nil
