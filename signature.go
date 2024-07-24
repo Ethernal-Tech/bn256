@@ -71,7 +71,7 @@ func UnmarshalSignature(raw []byte) (*Signature, error) {
 
 	// check if not part of the subgroup
 	if !g1.InCorrectSubgroup() {
-		return nil, fmt.Errorf("incorrect subgroup")
+		return nil, errIncorectSubgroup
 	}
 
 	return &Signature{g1: g1}, nil
