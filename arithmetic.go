@@ -1,11 +1,11 @@
-package bn256
+package core
 
 import (
 	"crypto/sha256"
 	"errors"
 	"math/big"
 
-	bn256 "github.com/umbracle/go-eth-bn256"
+	bn256 "github.com/Ethernal-Tech/bn256/cloudflare"
 )
 
 var (
@@ -30,9 +30,8 @@ func hashToPoint(msg, domain []byte) (*bn256.G1, error) {
 		return nil, err
 	}
 
-	//a = a.Mod(a, modulus)
-	//b = b.Mod(b, modulus)
-	a, b := res[0], res[1]
+	a := res[0].Mod(res[0], modulus)
+	b := res[1].Mod(res[1], modulus)
 
 	g1, err := mapToG1Point(a)
 	if err != nil {

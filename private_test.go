@@ -1,4 +1,4 @@
-package bn256
+package core
 
 import (
 	"math/big"

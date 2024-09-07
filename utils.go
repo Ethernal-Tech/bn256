@@ -1,4 +1,4 @@
-package bn256
+package core
 
 import (
 	"crypto/rand"
@@ -9,7 +9,7 @@ import (
 	"math/big"
 	"strings"
 
-	bn256 "github.com/umbracle/go-eth-bn256"
+	bn256 "github.com/Ethernal-Tech/bn256/cloudflare"
 )
 
 var (
