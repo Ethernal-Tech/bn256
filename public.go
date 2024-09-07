@@ -1,4 +1,4 @@
-package core
+package bn256eth
 
 import (
 	"encoding/base64"
