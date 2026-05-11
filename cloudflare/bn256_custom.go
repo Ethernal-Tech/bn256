@@ -1,9 +1,7 @@
 package bn256
 
 func (e *G2) InCorrectSubgroup() bool {
-	tmp := new(G2)
-	tmp = tmp.ScalarMult(e, Order)
-	return tmp.IsInfinity()
+	return new(G2).ScalarMult(e, Order).IsInfinity()
 }
 
 func (e *G2) IsInfinity() bool {
@@ -11,9 +9,7 @@ func (e *G2) IsInfinity() bool {
 }
 
 func (e *G1) InCorrectSubgroup() bool {
-	tmp := new(G1)
-	tmp = tmp.ScalarMult(e, Order)
-	return tmp.IsInfinity()
+	return new(G1).ScalarMult(e, Order).IsInfinity()
 }
 
 func (e *G1) IsInfinity() bool {
