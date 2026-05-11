@@ -129,29 +129,16 @@ func (pks PublicKeys) AggregateAffine() *PublicKey {
 	acc := [4]*big.Int{new(big.Int), new(big.Int), new(big.Int), new(big.Int)}
 
 	for _, pk := range pks {
-		buf := pk.g2.Marshal()
-		cur := [4]*big.Int{}
-
-		cur[0] = new(big.Int).SetBytes(buf[32:64])
-		cur[1] = new(big.Int).SetBytes(buf[0:32])
-		cur[2] = new(big.Int).SetBytes(buf[96:128])
-		cur[3] = new(big.Int).SetBytes(buf[64:96])
-		acc = AddG2Points(acc, cur)
+		acc = AddG2Points(acc, pk.ToBigInt())
 	}
 
-	// if accumulator is point at infinity (all zeros), return zero G2
-	if acc[0].Sign() == 0 && acc[1].Sign() == 0 && acc[2].Sign() == 0 && acc[3].Sign() == 0 {
-		return &PublicKey{g2: new(bn256.G2)}
-	}
+	bytes := make([]byte, 0, PublicKeySize)
+	bytes = append(bytes, PadLeftOrTrim(maskToUint256(acc[1]).Bytes(), 32)...)
+	bytes = append(bytes, PadLeftOrTrim(maskToUint256(acc[0]).Bytes(), 32)...)
+	bytes = append(bytes, PadLeftOrTrim(maskToUint256(acc[3]).Bytes(), 32)...)
+	bytes = append(bytes, PadLeftOrTrim(maskToUint256(acc[2]).Bytes(), 32)...)
 
-	// build bytes in expected order: x.real, x.imag, y.real, y.imag
-	out := make([]byte, 0, PublicKeySize)
-	out = append(out, PadLeftOrTrim(maskToUint256(acc[1]).Bytes(), 32)...)
-	out = append(out, PadLeftOrTrim(maskToUint256(acc[0]).Bytes(), 32)...)
-	out = append(out, PadLeftOrTrim(maskToUint256(acc[3]).Bytes(), 32)...)
-	out = append(out, PadLeftOrTrim(maskToUint256(acc[2]).Bytes(), 32)...)
-
-	pub, err := UnmarshalPublicKey(out)
+	pub, err := UnmarshalPublicKey(bytes)
 	if err != nil {
 		return &PublicKey{g2: new(bn256.G2)}
 	}

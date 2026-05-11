@@ -14,7 +14,7 @@ import (
 // AggregateAffine() produce identical results.
 func TestAggregateAffineFuzzy(t *testing.T) {
 	const (
-		iterations = 300
+		iterations = 1000
 		maxKeys    = 12
 		minKeys    = 4
 	)
