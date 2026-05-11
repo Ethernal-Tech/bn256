@@ -1,4 +1,3 @@
-//go:build (amd64 && !generic) || (arm64 && !generic)
 // +build amd64,!generic arm64,!generic
 
 package bn256
@@ -10,7 +9,6 @@ import (
 	"golang.org/x/sys/cpu"
 )
 
-//nolint:varcheck,unused,deadcode
 var hasBMI2 = cpu.X86.HasBMI2
 
 //go:noescape
